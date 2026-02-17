@@ -1,10 +1,10 @@
-# Customer Service Evaluation System
+Customer Service Evaluation System
 
-This project implements a hybrid Quality Assurance (QA) evaluation system for customer service transcripts, utilizing both rule-based logic and Large Language Models (LLM).
+This project implements a hybrid Quality Assurance (QA) evaluation system for customer service transcripts, combining deterministic rule-based checks with Large Language Model (LLM) scoring.
 
-## Project Structure
-
-```text
+------------------------------------------------------------
+Project Structure
+------------------------------------------------------------
 project1/
 ├── src/
 │   ├── core/
@@ -17,93 +17,105 @@ project1/
 │   └── test_rules.py      # Unit tests for rule engine
 ├── .github/
 │   └── workflows/
-│       └── test.yml       # CI/CD pipeline configuration
+│       └── test.yml       # CI pipeline configuration
 ├── Dockerfile             # Container configuration
 ├── main.py                # Entry point script
 ├── requirements.txt       # Python dependencies
 └── README.md              # Project documentation
 
-
-Installation and Usage
+------------------------------------------------------------
 Prerequisites
-Python 3.10+
+------------------------------------------------------------
+- Python 3.10+
+- OpenAI API Key
+- Docker (optional)
 
-Docker (optional)
+------------------------------------------------------------
+Installation and Usage
+------------------------------------------------------------
 
-OpenAI API Key
+Method 1: Run with Docker (Recommended)
 
-Method 1: Running with Docker (Recommended)
-Build the Docker image:
+1) Build the image:
+   docker build -t kontakt-task .
 
-Bash
-docker build -t kontakt-task .
-Run the container:
-Replace your-api-key-here with your actual OpenAI API key.
+2) Run the container (replace your-api-key-here with your actual key):
+   docker run -e OPENAI_API_KEY="your-api-key-here" -v ${PWD}:/app kontakt-task
 
-Bash
-docker run -e OPENAI_API_KEY="your-api-key-here" -v ${PWD}:/app kontakt-task
-Method 2: Running Locally
-Install dependencies:
+   Note:
+   - ${PWD} works in Git Bash / Linux / macOS
+   - On Windows PowerShell, use:
+     docker run -e OPENAI_API_KEY="your-api-key-here" -v ${PWD}:/app kontakt-task
 
-Bash
-pip install -r requirements.txt
-Set environment variables:
-Linux/Mac:
+------------------------------------------------------------
 
-Bash
-export OPENAI_API_KEY="your-api-key-here"
-Windows (PowerShell):
+Method 2: Run Locally
 
-PowerShell
-$env:OPENAI_API_KEY="your-api-key-here"
-Run the evaluation:
+1) Install dependencies:
+   pip install -r requirements.txt
 
-Bash
-python main.py
-Run unit tests:
+2) Set the environment variable:
 
-Bash
-python -m unittest discover tests
+   Linux / macOS:
+   export OPENAI_API_KEY="your-api-key-here"
+
+   Windows (PowerShell):
+   $env:OPENAI_API_KEY="your-api-key-here"
+
+3) Run the evaluation:
+   python main.py
+
+4) Run unit tests:
+   python -m unittest discover -s tests
+
+------------------------------------------------------------
 Technical Decisions
-LLM Selection: GPT-4o-mini
-GPT-4o-mini was selected for this task due to three primary factors:
+------------------------------------------------------------
 
-Cost-Efficiency: It offers a significantly lower cost per token compared to GPT-4, making it suitable for high-volume batch processing.
+LLM Selection: gpt-4o-mini
 
-Multilingual Support: The model demonstrates strong performance in code-switching scenarios (Azerbaijani/Russian/English), which is essential for the provided dataset.
+gpt-4o-mini was selected for:
+- Cost-efficiency: Lower cost per token compared to larger GPT-4-class models, suitable for batch processing.
+- Multilingual support: Strong performance for Azerbaijani / Russian / English code-switching.
+- Latency: Faster inference to keep the pipeline responsive.
 
-Latency: The model provides faster inference times, ensuring the pipeline remains responsive.
+------------------------------------------------------------
+Hybrid Approach
+------------------------------------------------------------
 
-Hybrid Approach (Rule-Based vs. LLM)
-To ensure robustness and resource optimization, the system employs a two-layer architecture:
+To ensure robustness and optimize API usage, the system uses a two-layer architecture:
 
-Layer 1: Rule-Based Engine (src/core/rules.py): Handles objective checks such as PII detection (credit card patterns), empty transcripts, and audio duration validation. This layer runs first to filter out invalid data without incurring API costs.
+Layer 1: Rule-Based Engine (src/core/rules.py)
+- Handles objective checks such as:
+  - PII detection (e.g., credit card-like patterns)
+  - Empty transcript detection
+  - Audio duration validation
+  - Data integrity checks
+- Runs first to filter invalid transcripts without incurring LLM costs.
 
-Layer 2: LLM Engine (src/core/evaluator.py): Handles subjective criteria such as "Politeness," "Solution delivery," and "Customer needs analysis." These require semantic understanding that rule-based systems cannot provide.
+Layer 2: LLM Engine (src/core/evaluator.py)
+- Handles subjective criteria requiring semantic understanding:
+  - Politeness and tone
+  - Solution delivery quality
+  - Customer needs analysis
 
+------------------------------------------------------------
 Challenges and Solutions
-1. Hallucinations
-Challenge: The model occasionally fabricated discounts or offers that were not present in the text.
-Solution: I implemented a strict prompt constraint requiring the model to extract an evidence_snippet. If the model cannot quote the exact text from the transcript to support its score, it is instructed to return a null evidence value.
+------------------------------------------------------------
 
-2. Mixed Language Processing
-Challenge: Transcripts frequently switch between Russian and Azerbaijani.
-Solution: The system uses a multilingual system prompt that explicitly instructs the model to interpret context regardless of the language used, ensuring consistent scoring across language boundaries.
+1) Hallucinations
+- Challenge: The model occasionally fabricated discounts or offers not present in the transcript.
+- Solution: Enforced a strict requirement to output an evidence_snippet. If it cannot quote supporting text, it must return null evidence.
 
+2) Mixed Language Processing
+- Challenge: Transcripts frequently switch between Russian and Azerbaijani.
+- Solution: A multilingual system prompt instructs the model to interpret context across languages to keep scoring consistent.
+
+------------------------------------------------------------
 Future Improvements
-If more time were available, the following features would be implemented:
-
-Advanced PII Redaction: Integration of Named Entity Recognition (NER) models (e.g., Spacy or Hugging Face BERT) to detect names and addresses, supplementing the current regex-based credit card detection.
-
-Direct Audio Processing: Integration of OpenAI Whisper to transcribe raw audio files within the pipeline, removing the dependency on pre-existing text transcripts.
-
-Visualization Dashboard: Development of a Streamlit or React-based frontend to visualize agent performance metrics and trends over time.
+------------------------------------------------------------
+- Advanced PII redaction: Add NER-based detection (spaCy / Hugging Face models) for names, addresses, and more sensitive entities beyond regex patterns.
+- Direct audio processing: Integrate Whisper to transcribe raw audio files directly, removing dependency on pre-existing text transcripts.
+- Visualization dashboard: Build a Streamlit or React-based UI to visualize agent performance metrics and trends over time.
 
 
-### **Step 3: Save and Push**
-After creating the file, run these commands to upload it to GitHub:
-
-```powershell
-git add README.md
-git commit -m "Add project documentation"
-git push
