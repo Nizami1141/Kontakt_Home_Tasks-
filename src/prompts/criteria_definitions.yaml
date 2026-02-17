@@ -1,0 +1,44 @@
+KR2.1:
+  name: "Fəal yardım"
+  description: "Müştəriyə fəal kömək edilməli, verilən suala, dəqiqləşdirici sualları gözləmədən, maksimum ətraflı məlumat verməlidir. Operativ olmalı, ləng işləməməlidir. Operator optimal həll yolu tapmağa çalışmalıdır."
+  scoring:
+    3: "Əməkdaş müştəriyə aktiv şəkildə kömək edir, operativ cavab verir və problemi həll etmək üçün optimal həll yolu axtarır və təqdim edir."
+    2: "Əməkdaş problemi həll etməyə çalışır və fəaldır, lakin operativlik zəifdir – gec reaksiya verir və ya gec həll təqdim edir."
+    1: "Əməkdaşın kömək göstərməsi passiv xarakter daşıyır. Problemə səthi yanaşır, əksər hallarda həll yolu təqdim etmir və ya bunu bacarmır."
+    0: "Əməkdaş müştəriyə kömək etmir, problemi həll etməyə cəhd göstərmir, operativ deyil və müştərini yola verməyə çalışır."
+
+KR2.2:
+  name: "Tələbatın formalaşdırılması"
+  description: "Müştəri tərəfdən dəqiq qoyulan sual/fikir operator tərəfdən bir neçə dəfə təkrarlanmamalıdır. Operator müştərini diqqətlə dinləməli, sualını eşitməli və mahiyyətini anlamalıdır."
+  scoring:
+    3: "Operator müştərini diqqətlə dinləyir, sualı tam anlayır və dəqiqləşdirici suallarla ehtiyacı tam müəyyən edir."
+    2: "Operator müştərini dinləyir, lakin bəzi məqamları təkrar soruşur və ya ehtiyacı tam dəqiqləşdirmir."
+    1: "Operator müştərini diqqətlə dinləmir, eyni sualı dəfələrlə verir və ya ehtiyacı səhv anlayır."
+    0: "Operator müştərinin nə istədiyini anlamır və ya dinləmək istəmir."
+
+KR2.3:
+  name: "Nitq Mədəniyyəti"
+  description: "Operatorun nitqi səlis, aydın və ədəbi dil normalarına uyğun olmalıdır. Kobud sözlərdən, jarqonlardan və parazit sözlərdən istifadə edilməməlidir."
+  scoring:
+    3: "Nitq səlis, aydın və tam nəzakətlidir. Heç bir qüsur yoxdur."
+    2: "Nitqdə cüzi qüsurlar var (bəzi parazit sözlər), lakin ümumi ünsiyyət normaldır."
+    1: "Nitq qüsurlu, anlaşılmazdır və ya jarqon istifadə olunur."
+    0: "Operator kobud danışır, qışqırır və ya təhqiramiz ifadələr işlədir."
+
+KR2.4:
+  name: "Müraciətin qeydə alınması / Yönləndirilməsi"
+  description: "Müştərinin müraciəti düzgün kateqoriyada qeydə alınmalı və lazım gələrsə, aidiyyatı şöbəyə düzgün yönləndirilməlidir."
+  scoring:
+    3: "Müştərinin məlumatlarını tam və düzgün qeydə alır / müraciəti təyinatı üzrə düzgün yönləndirir."
+    2: "Müştərinin məlumatlarını natamam qeydə alır, lakin yönləndirmə düzgündür."
+    1: "Müraciəti təyinatı üzrə yönləndirmir və ya səhv yönləndirir."
+    0: "Müştərinin məlumatlarını qeydə almır və müraciəti yönləndirmir."
+
+KR2.5:
+  name: "Peşəkar davranış və etiket qaydaları"
+  description: "Müştəri ilə danışıq zamanı dəstəyə kənar fikirlər söylənməməlidir. Zəngi açanda kənar danışıq, gülüş səsləri zəngə düşməməlidir. Müştəri ilə danışıq zamanı öskürmə, boğaz təmizləmə, dərindən ah çəkmə, əsnəmə, maye və qida qəbul etmə halları olmamalıdır."
+  scoring:
+    3: "Davranış tam peşəkardır. Kənar səs, gülüş və ya daxili müzakirələr yoxdur."
+    2: "Cüzi kənar səslər var, lakin ünsiyyətə mane olmur."
+    1: "Hiss olunan kənar səslər (gülüş, yemək səsi) var və ya operator daxili problemləri müştəriyə danışır."
+    0: "Qeyri-etik davranış, operator müştəri ilə mübahisə edir və ya laqeyd yanaşır."
