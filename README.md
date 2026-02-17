@@ -8,20 +8,20 @@ Project Structure
 project1/
 ├── src/
 │   ├── core/
-│   │   ├── rules.py       # Deterministic rule engine (PII, data integrity)
-│   │   ├── evaluator.py   # Hybrid evaluation logic
-│   │   └── llm_client.py  # OpenAI API interaction
+│   │   ├── rules.py        # Deterministic rule engine (PII, data integrity)
+│   │   ├── evaluator.py    # Hybrid evaluation logic
+│   │   └── llm_client.py   # OpenAI API interaction
 │   └── utils/
-│       └── text_tools.py  # Text formatting utilities
+│       └── text_tools.py   # Text formatting utilities
 ├── tests/
-│   └── test_rules.py      # Unit tests for rule engine
+│   └── test_rules.py       # Unit tests for rule engine
 ├── .github/
 │   └── workflows/
-│       └── test.yml       # CI pipeline configuration
-├── Dockerfile             # Container configuration
-├── main.py                # Entry point script
-├── requirements.txt       # Python dependencies
-└── README.md              # Project documentation
+│       └── test.yml        # CI pipeline configuration
+├── Dockerfile              # Container configuration
+├── main.py                 # Entry point script
+├── requirements.txt        # Python dependencies
+└── README.md               # Project documentation
 
 ------------------------------------------------------------
 Prerequisites
