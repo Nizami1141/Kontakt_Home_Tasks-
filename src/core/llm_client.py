@@ -26,7 +26,7 @@ class LLMClient:
         self.model = model or os.getenv("OPENAI_MODEL") or "gpt-4o-mini"
 
     def evaluate_call(self, transcript_text: str, criteria_text: str) -> dict:
-        # UPDATED PROMPT: Added language instruction
+      
         system_prompt = f"""
 You are a Quality Assurance Specialist for a Customer Service center in Azerbaijan.
 Evaluate the following call transcript based strictly on these criteria:
